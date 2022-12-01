@@ -31,6 +31,14 @@ def sum_calories(calorie_list):
     return elf_calorie_list
 
 
+# Part one solution:
+
 elf_calories = sum_calories(calories_list)
 # print(elf_calories)
 print(max(elf_calories))
+
+# Part two solution:
+
+calories_sorted = sorted(elf_calories)
+top_three = sum(calories_sorted[-3:])
+print(top_three)
