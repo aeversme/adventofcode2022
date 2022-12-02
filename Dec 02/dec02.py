@@ -11,3 +11,6 @@ rps = convert_input(rps_raw)
 
 counted_games = gh.count_games(rps)
 print(counted_games)
+
+score = gh.score_game(rps[0], gh.letter_guide, gh.score_guide)
+print(score)
