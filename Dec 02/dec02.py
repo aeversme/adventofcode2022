@@ -4,13 +4,21 @@
 from input_handler import convert_input
 import game_handler as gh
 
-with open('rps_sample.txt') as file:
+with open('rps.txt') as file:
     rps_raw = file.readlines()
 
 rps = convert_input(rps_raw)
 
-counted_games = gh.count_games(rps)
-print(counted_games)
 
-score = gh.score_game(rps[0], gh.letter_guide, gh.score_guide)
-print(score)
+def get_total_score(game_list):
+    total_score = 0
+    for game in game_list:
+        total_score += gh.score_game(game, gh.code_guide, gh.score_guide)
+
+    return total_score
+
+
+# Part one solution
+
+rps_score = get_total_score(rps)
+print(rps_score)

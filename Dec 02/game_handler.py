@@ -1,4 +1,4 @@
-letter_guide = {
+code_guide = {
     'A': 'rock',
     'B': 'paper',
     'C': 'scissors',
