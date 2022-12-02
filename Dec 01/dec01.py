@@ -1,5 +1,5 @@
 # Advent of Code 2022
-# December 1, part 1
+# December 1st
 
 import input_handler as ih
 
