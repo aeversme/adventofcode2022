@@ -11,11 +11,23 @@ rucksack_list = convert_input(rucksack_raw)
 print(rucksack_list)
 
 
-def calculate_priorities(rucksacks):
+def calculate_priorities(rucksacks, part_two=False):
+    """
+    Takes a list of strings and returns a score.
+    :param rucksacks: list
+    :param part_two: Boolean
+    :return: int
+    """
     priority_total = 0
-    for rucksack in rucksacks:
-        common_letter = sh.find_common_letter(rucksack)
-        priority_total += sh.score_letter(common_letter)
+    if part_two:
+        group_list = sh.group_strings(rucksacks)
+        for group in group_list:
+            common_letter = sh.find_common_letter(group_list=group, part_two=True)
+            priority_total += sh.score_letter(common_letter)
+    else:
+        for rucksack in rucksacks:
+            common_letter = sh.find_common_letter(string=rucksack)
+            priority_total += sh.score_letter(common_letter)
     return priority_total
 
 
@@ -23,3 +35,8 @@ def calculate_priorities(rucksacks):
 
 total = calculate_priorities(rucksack_list)
 print(total)
+
+# Part two solution
+
+group_total = calculate_priorities(rucksack_list, part_two=True)
+print(group_total)
