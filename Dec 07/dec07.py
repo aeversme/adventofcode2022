@@ -18,14 +18,43 @@ def create_directory_tree(data):
     return dir_list
 
 
+# Part one solution
+
+
 def get_small_dir_sum(data):
     dir_list = create_directory_tree(data)
     small_dir_sum = 0
     for directory in dir_list:
         if directory.size <= 100000:
             small_dir_sum += directory.size
-    return small_dir_sum
+    return dir_list, small_dir_sum
 
 
-small_sum = get_small_dir_sum(dt)
+dirs, small_sum = get_small_dir_sum(dt)
 print(f'Sum of small directories = {small_sum}')
+
+
+# Part two solution
+
+
+def find_dir_to_delete(data):
+    directories = create_directory_tree(data)
+    total_size = directories[0].size
+    print(f'Size of root = {total_size}')
+    free_space = 70000000 - total_size
+    amount_to_delete = 30000000 - free_space
+    print(f'Amount to be deleted = {amount_to_delete}')
+    eligible_dirs = []
+    for d in directories:
+        if d.size > amount_to_delete:
+            eligible_dirs.append(d)
+    print(f'Eligible directories = {len(eligible_dirs)}')
+    smallest_size = total_size
+    for e in eligible_dirs:
+        if e.size < smallest_size:
+            smallest_size = e.size
+    return smallest_size
+
+
+size = find_dir_to_delete(dt)
+print(f'Directory size to delete = {size}')
