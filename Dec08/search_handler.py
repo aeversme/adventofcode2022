@@ -13,6 +13,14 @@ def is_edge(position, trees):
 
 
 def is_higher(position, direction, trees):
+    """
+    Checks a given position's value against the value of an adjacent position in the grid of 'trees'. Returns True if
+    the given position is higher (greater) than the adjacent position; otherwise, returns False.
+    :param position:
+    :param direction:
+    :param trees:
+    :return:
+    """
     higher = True
     row = position[0]
     column = position[1]
@@ -23,10 +31,28 @@ def is_higher(position, direction, trees):
     return higher
 
 
-def is_visible(position, trees):
+def is_visible_in_one_direction(position, direction, trees):
     visible = True
     row = position[0]
     column = position[1]
-    directions = [[0, -1], [0, 1], [-1, 0], [1, 0]]
+    position_to_check = position
+    if is_edge(position_to_check, trees):
+        visible = is_higher(position_to_check, direction, trees)
+    elif is_higher(position_to_check, direction, trees):
+        position_to_check = [row + direction[0], column + direction[1]]
+        visible = is_higher(position_to_check, direction, trees)
+    return visible
 
+
+def is_visible(position, trees):
+    visible = True
+    directions = [[0, -1], [0, 1], [-1, 0], [1, 0]]
+    directions_visible = []
+    if is_edge(position, trees):
+        return True
+    for direction in directions:
+        direction_visible = is_visible_in_one_direction(position, direction, trees)
+        directions_visible.append(direction_visible)
+    if True not in directions_visible:
+        visible = False
     return visible
