@@ -1,4 +1,10 @@
 def is_edge(position, trees):
+    """
+
+    :param position:
+    :param trees:
+    :return:
+    """
     edge = True
     horiz_length = len(trees[0])
     vert_length = len(trees)
@@ -12,10 +18,11 @@ def is_edge(position, trees):
     return edge
 
 
-def is_higher(position, direction, trees):
+def is_higher(position, direction, trees, position_index=None):
     """
     Checks a given position's value against the value of an adjacent position in the grid of 'trees'. Returns True if
     the given position is higher (greater) than the adjacent position; otherwise, returns False.
+    :param position_index:
     :param position:
     :param direction:
     :param trees:
@@ -25,6 +32,8 @@ def is_higher(position, direction, trees):
     row = position[0]
     column = position[1]
     tree = trees[row][column]
+    if position_index is not None:
+        tree = trees[row - (direction[0] * position_index)][column - (direction[1] * position_index)]
     if is_edge(position, trees):
         higher = True
     else:
@@ -34,22 +43,37 @@ def is_higher(position, direction, trees):
     return higher
 
 
-def is_visible_in_one_direction(position, direction, trees):
-    visible = True
+def is_visible_in_one_direction(position, direction, trees, position_index=0):
+    """
+
+    :param position:
+    :param direction:
+    :param trees:
+    :param position_index:
+    :return:
+    """
     row = position[0]
     column = position[1]
+    position_index = position_index
     position_to_check = position
     if is_edge(position_to_check, trees):
         visible = True
-    if is_higher(position_to_check, direction, trees):
+    elif is_higher(position_to_check, direction, trees, position_index):
+        position_index += 1
         position_to_check = [row + direction[0], column + direction[1]]
-        visible = is_higher(position_to_check, direction, trees)
+        visible = is_visible_in_one_direction(position_to_check, direction, trees, position_index)
     else:
         visible = False
     return visible
 
 
 def is_visible(position, trees):
+    """
+
+    :param position:
+    :param trees:
+    :return:
+    """
     visible = True
     directions = [[0, -1], [0, 1], [-1, 0], [1, 0]]
     directions_visible = []
