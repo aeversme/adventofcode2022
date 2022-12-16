@@ -25,9 +25,12 @@ def is_higher(position, direction, trees):
     row = position[0]
     column = position[1]
     tree = trees[row][column]
-    tree_to_compare = trees[row + direction[0]][column + direction[1]]
-    if tree_to_compare >= tree:
-        higher = False
+    if is_edge(position, trees):
+        higher = True
+    else:
+        tree_to_compare = trees[row + direction[0]][column + direction[1]]
+        if tree_to_compare >= tree:
+            higher = False
     return higher
 
 
@@ -37,10 +40,12 @@ def is_visible_in_one_direction(position, direction, trees):
     column = position[1]
     position_to_check = position
     if is_edge(position_to_check, trees):
-        visible = is_higher(position_to_check, direction, trees)
-    elif is_higher(position_to_check, direction, trees):
+        visible = True
+    if is_higher(position_to_check, direction, trees):
         position_to_check = [row + direction[0], column + direction[1]]
         visible = is_higher(position_to_check, direction, trees)
+    else:
+        visible = False
     return visible
 
 
