@@ -61,10 +61,10 @@ def is_visible_in_one_direction(position, direction, trees, position_index=0):
     elif is_higher(position_to_check, direction, trees, position_index):
         position_index += 1
         position_to_check = [row + direction[0], column + direction[1]]
-        visible = is_visible_in_one_direction(position_to_check, direction, trees, position_index)
+        visible, position_index = is_visible_in_one_direction(position_to_check, direction, trees, position_index)
     else:
         visible = False
-    return visible
+    return visible, position_index
 
 
 def is_visible(position, trees):
@@ -77,11 +77,16 @@ def is_visible(position, trees):
     visible = True
     directions = [[0, -1], [0, 1], [-1, 0], [1, 0]]
     directions_visible = []
+    view_count = 0
     if is_edge(position, trees):
-        return True
+        return True, view_count
     for direction in directions:
-        direction_visible = is_visible_in_one_direction(position, direction, trees)
+        direction_visible, direction_count = is_visible_in_one_direction(position, direction, trees)
         directions_visible.append(direction_visible)
+        if view_count == 0:
+            view_count += direction_count
+        else:
+            view_count *= direction_count
     if True not in directions_visible:
         visible = False
-    return visible
+    return visible, view_count

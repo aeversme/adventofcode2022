@@ -9,4 +9,4 @@ Dec 04: Elf Pairs :star::star:<br>
 Dec 05: Re-stacking Crates :star::star:<br>
 Dec 06: Signal Markers :star::star:
 Dec 07: Directory Tree :star::star:
-Dec 08: Visible Trees
+Dec 08: Visible Trees :star:
